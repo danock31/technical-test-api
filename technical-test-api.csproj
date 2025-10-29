@@ -21,12 +21,6 @@
   <ItemGroup>
     <Folder Include="Application\DTos\" />
     <Folder Include="Application\Interfaces\" />
-    <Folder Include="Application\Services\" />
-    <Folder Include="Domain\Entities\" />
-    <Folder Include="Domain\Common\" />
-    <Folder Include="Infrastructure\Data\" />
-    <Folder Include="Infrastructure\Interfaces\" />
-    <Folder Include="Infrastructure\Repositories\" />
   </ItemGroup>
 
 </Project>

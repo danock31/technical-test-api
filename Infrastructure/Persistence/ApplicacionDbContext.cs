@@ -6,6 +6,6 @@ namespace technical_test_api.Infrastructure.Persistence
     public class ApplicacionDbContext : DbContext
     {
         public ApplicacionDbContext(DbContextOptions<ApplicacionDbContext> options):base(options){}
-        public DbSet<Persona>personas { get; set; }
+        public DbSet<Product>products { get; set; }
     }
 }

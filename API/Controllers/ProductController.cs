@@ -6,10 +6,10 @@ namespace technical_test_api.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PersonaController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly PersonaService _service;
-        public PersonaController(PersonaService service)
+        private readonly ProductService _service;
+        public ProductController(ProductService service)
         {
             _service = service;
         }
@@ -20,23 +20,23 @@ namespace technical_test_api.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var persona = await _service.GetByIdAsync(id);
-            if (persona == null) return NotFound();
-            return Ok(persona);
+            var product = await _service.GetByIdAsync(id);
+            if (product == null) return NotFound();
+            return Ok(product);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Persona persona)
+        public async Task<IActionResult> Create(Product product)
         {
-            await _service.AddAsync(persona);
-            return CreatedAtAction(nameof(GetById), new {id = persona.Id },persona);
+            await _service.AddAsync(product);
+            return CreatedAtAction(nameof(GetById), new {id = product.Id },product);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id,Persona persona)
+        public async Task<IActionResult> Update(int id,Product product)
         {
-            if(id != persona.Id) return BadRequest();
-            await _service.UpdateAsync(persona);
+            if(id != product.Id) return BadRequest();
+            await _service.UpdateAsync(product);
             return NoContent();
         }
 
