@@ -106,7 +106,5 @@ namespace technical_test_api.API.Controllers
             await _service.DeleteAsync(id);
             return Ok("Producto eliminado correctamente");
         }
-
-
     }
 }

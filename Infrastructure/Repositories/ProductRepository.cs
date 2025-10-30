@@ -23,7 +23,6 @@ namespace technical_test_api.Infrastructure.Repositories
         public async Task<IEnumerable<Product>> SearchAsync(string name)
         {
             var result = await _context.products
-            //Se utiliza LynQ para la parte de la busqueda 
             .Where(p => p.Name.ToLower().Contains(name.ToLower()))
             .ToListAsync();
 
