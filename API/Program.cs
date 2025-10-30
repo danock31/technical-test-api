@@ -25,8 +25,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy => policy.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularApp");
 
 app.UseAuthorization();
 
