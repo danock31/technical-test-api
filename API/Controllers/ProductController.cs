@@ -52,30 +52,46 @@ namespace technical_test_api.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Product product)
         {
-            //Validaciones para el Create, estas son las que estan en la entidad
+            // Validaciones del modelo
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Guardar el producto en la base de datos
             await _service.AddAsync(product);
-            return CreatedAtAction(nameof(GetById), new {id = product.Id },product);
+
+            //Devolver respuesta con mensaje y el producto creado
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = product.Id },
+                new
+                {
+                    message = "Producto creado correctamente",
+                    data = product
+                }
+            );
         }
 
         //Metodo PUT
-        [HttpPut("{id:int}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Product product)
         {
-            //Validaciones para el Update
             if (id != product.Id)
-                return BadRequest("El ID del producto no coincide");
-            //Igual usa las validaciones que estan en la entidad
-            if(!ModelState.IsValid)
+                return BadRequest("El ID del producto no coincide.");
+
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            //Valida la existencia del producto eb la DB
+
             var existing = await _service.GetByIdAsync(id);
             if (existing == null)
                 return NotFound($"No se encontró un producto con el ID {id}.");
 
-            await _service.UpdateAsync(product);
+            // Actualiza campo a campo sobre la entidad ya cargada
+            existing.Name = product.Name;
+            existing.Price = product.Price;
+            existing.IsActive = product.IsActive;
+
+            await _service.UpdateAsync(existing);
+
             return Ok("Producto actualizado correctamente");
         }
 
