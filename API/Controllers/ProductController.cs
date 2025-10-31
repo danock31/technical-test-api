@@ -18,9 +18,6 @@ namespace technical_test_api.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var products = await _service.GetAllAsync();
-            if (!products.Any())
-                return NotFound("No hay productos registrados.");
-
             return Ok(products);
         }
 
@@ -77,7 +74,7 @@ namespace technical_test_api.API.Controllers
         {
             if (id != product.Id)
                 return BadRequest("El ID del producto no coincide.");
-
+             // Validaciones del modelo
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -89,9 +86,9 @@ namespace technical_test_api.API.Controllers
             existing.Name = product.Name;
             existing.Price = product.Price;
             existing.IsActive = product.IsActive;
-
+            // Guardar el producto actualizado en la base de datos
             await _service.UpdateAsync(existing);
-
+            
             return Ok("Producto actualizado correctamente");
         }
 
@@ -99,8 +96,8 @@ namespace technical_test_api.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            //Valida la existencia del producto eb la DB
             var existing = await _service.GetByIdAsync(id);
+            //Valida la existencia del producto eb la DB
             if (existing == null)
                 return NotFound($"No se encontró un producto con el ID {id}.");
             await _service.DeleteAsync(id);

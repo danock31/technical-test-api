@@ -21,9 +21,10 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
-        policy => policy.WithOrigins("https://orange-bush-0a7574d1e.3.azurestaticapps.net/")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod());
+      policy => policy.WithOrigins("https://orange-bush-0a7574d1e.3.azurestaticapps.net/")
+                         .AllowAnyHeader()
+                         .AllowAnyMethod());
+
 });
 
 var app = builder.Build();
